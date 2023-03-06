@@ -4,7 +4,6 @@ import { AiOutlineClose} from 'react-icons/ai'
 import { UserAuth } from '../Context/AuthContext';
 import { db } from '../firebase';
 import { updateDoc,doc,onSnapshot } from 'firebase/firestore';
-import { async } from '@firebase/util';
 function SavedShows() {
 
     const [movies,setMovies] = useState([])

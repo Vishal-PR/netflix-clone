@@ -7,6 +7,7 @@ import {arrayUnion,doc,updateDoc} from 'firebase/firestore';
 
 const Movie = ({ movie }) => {
   const [like, setLike] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [saved , setSaved] = useState(false);
 const {user}= UserAuth();
 const movieId = doc(db,'users',`${user?.email}`);
