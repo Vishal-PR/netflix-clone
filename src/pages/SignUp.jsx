@@ -7,6 +7,7 @@ function SignUp() {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const {user, signUp} = UserAuth();
+  const [error , setError] = useState("");
   const navigate = useNavigate()  
   
   const handleSubmit = async(e) => {
@@ -15,7 +16,9 @@ function SignUp() {
       await signUp(email,password)
       navigate("/")
     } catch (error){
+      
       console.log(error)
+      setError(error.message)
     }
   }
   
@@ -36,6 +39,8 @@ function SignUp() {
             <div className="max-w-[450px] h-[600px] mx-auto bg-black/75 text-white">
               <div className="max-w-[320px] mx-auto py-16">
                 <h1 className="text-3xl font-bold ">Sign Up</h1>
+                {error ? <p>{error}</p> : null}
+
                 <form onSubmit={handleSubmit} className="w-full p-4 flex flex-col">
                   <input
                   onChange={(e) => setEmail(e.target.value)}

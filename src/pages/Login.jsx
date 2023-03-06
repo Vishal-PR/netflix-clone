@@ -1,7 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserAuth } from "../Context/AuthContext";
 
 function Login() {
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [error , setError] = useState("");
+  const {user, logIn} = UserAuth();
+  const navigate = useNavigate()  
+  
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try{
+      await logIn(email,password)
+      setError("");
+      navigate("/")
+    } catch (error){
+      console.log(error)
+      setError(error.message)
+    }
+  }
+  
+
   return (
     <>
     <div className="w-full h-screen">
@@ -16,8 +36,10 @@ function Login() {
             <div className="max-w-[450px] h-[600px] mx-auto bg-black/75 text-white">
               <div className="max-w-[320px] mx-auto py-16">
                 <h1 className="text-3xl font-bold">Sign In</h1>
-                <form action="" className="w-full p-4 flex flex-col">
+                {error ? <p>{error}</p> : null}
+                <form onSubmit={handleSubmit} className="w-full p-4 flex flex-col">
                   <input
+                  onChange={(e) => setEmail(e.target.value)}
                     type="email"
                     placeholder="Email"
                     autoComplete="email"
@@ -25,6 +47,7 @@ function Login() {
                   />
 
                   <input
+                  onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     placeholder="Password"
                     autoComplete="current-password"
